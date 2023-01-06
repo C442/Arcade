@@ -1,7 +1,7 @@
 from mInput import *
 from wordle import *
 from hang_man import *
-from battleship import *
+from battleship_pl_vs_ki import *
 
 
 def arcade_title():

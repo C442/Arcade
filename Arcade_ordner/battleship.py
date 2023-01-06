@@ -3,16 +3,16 @@ import random
 
 
 def wordle_title():
-    game_title = CYAN + """
+    game_title = CBLACKBG + BLUE + f"""
 /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
-/      ____        __  __  __          ___\__                 \\
-/     / __ )____ _/ /_/ /_/ ___       |______\_____           \\
-/    / __  / __ `/ __/ __/ / _ \_____/_______/_____\_______   \\
-/   / /_/ / /_/ / /_/ /_/ /  __|       > > >              /   \\
-/  /_____/\__,_/\__/\__/_/\___/\_________________________/    \\
+/    {RED}  ____        __  __  __          ___\__               {BLUE+CBLACKBG}  \\
+/  {RED}   / __ )____ _/ /_/ /_/ ___       |______\_____         {BLUE+CBLACKBG}  \\
+/  {RED}  / __  / __ `/ __/ __/ / _ \_____/_______/_____\_______  {BLUE+CBLACKBG} \\
+/ {RED}  / /_/ / /_/ / /_/ /_/ /  __|       > > >              /  {BLUE+CBLACKBG} \\
+/ {RED} /_____/\__,_/\__/\__/_/\___/\_________________________/  {BLUE+CBLACKBG}  \\
 /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
 
-    """
+"""
     print(game_title)
 
 
@@ -25,18 +25,15 @@ def single_player_mode():
                              "E1": " ", "E2": " ", "E3": " ", "E4": " ", "E5": " "
                              }
     enemy = enemy_ship_placement()
+    max_shots = 2
     game_state = True
-    max_shots = 14
-    enemy_view_field(enemy_game_field_dict)
     while game_state:
+        enemy_view_field(enemy_game_field_dict)
         shot = hitting_enemy(enemy_game_field_dict)
         checked_enemy_game_field_dict = check_hit(
             enemy, shot, enemy_game_field_dict)
-        game_state, shots_left = check_win(
-            enemy_game_field_dict, game_state, max_shots)
-        if game_state:
-            enemy_view_field(checked_enemy_game_field_dict)
-            print(f" Tries left = {shots_left}")
+        game_state = check_win(
+            enemy_game_field_dict, max_shots)
 
 
 def enemy_ship_placement():
@@ -104,9 +101,10 @@ def check_hit(enemy, shot, enemy_game_field_dict):
     return enemy_game_field_dict
 
 
-def check_win(enemy_game_field_dict, game_state, max_shots):
+def check_win(enemy_game_field_dict, max_shots):
     ship_counter = 0
     shot_counter = 0
+    game_state = True
 
     for key in enemy_game_field_dict:
         if enemy_game_field_dict[key].__eq__(RED + "H" + BLUE):
@@ -117,58 +115,53 @@ def check_win(enemy_game_field_dict, game_state, max_shots):
 
         if ship_counter == 7:
             print(BOLD + GREENBRIGHT +
-                  f"Well done captain!!! WE won in {shot_counter} shots" + RESET)
+                  f"{CBLACKBG}Well done captain!!! WE won in {shot_counter} shots" + CBLACKBG+WHITE)
             game_state = False
             break
         if shot_counter == max_shots:
             print(BOLD + RED +
-                  f"we lost... {ships_left} targets left\n" + RESET)
+                  f"{CBLACKBG}we lost... {ships_left} targets left\n" + CBLACKBG+WHITE)
             game_state = False
             break
         shots_left = max_shots - shot_counter
         ships_left = 7 - ship_counter
-    return game_state, shots_left
+        print(f" Tries left = {shots_left}")
+    return game_state
 
 
 def enemy_view_field(enemy_game_field_dict):
-    ew = WHITE+"Enemy waters"+BLUE
-    field_view = f"""
-    
+    ew = CBLACKBG+WHITE+"Enemy waters"+BLUE
+    field_view = CBLACKBG + f"""
      {ew}
 
         1        2        3        4        5
-     _______  _______  _______  _______  _______ 
+     _______  _______  _______  _______  _______
     |       ||       ||       ||       ||       |
   A |   {enemy_game_field_dict["A1"]}   ||   {enemy_game_field_dict["A2"]}   ||   {enemy_game_field_dict["A3"]}   ||   {enemy_game_field_dict["A4"]}   ||   {enemy_game_field_dict["A5"]}   |
     |_______||_______||_______||_______||_______|
-     _______  _______  _______  _______  _______ 
+     _______  _______  _______  _______  _______
     |       ||       ||       ||       ||       |
   B |   {enemy_game_field_dict["B1"]}   ||   {enemy_game_field_dict["B2"]}   ||   {enemy_game_field_dict["B3"]}   ||   {enemy_game_field_dict["B4"]}   ||   {enemy_game_field_dict["B5"]}   |
     |_______||_______||_______||_______||_______|
-     _______  _______  _______  _______  _______ 
+     _______  _______  _______  _______  _______
     |       ||       ||       ||       ||       |
   C |   {enemy_game_field_dict["C1"]}   ||   {enemy_game_field_dict["C2"]}   ||   {enemy_game_field_dict["C3"]}   ||   {enemy_game_field_dict["C4"]}   ||   {enemy_game_field_dict["C5"]}   |
     |_______||_______||_______||_______||_______|
-     _______  _______  _______  _______  _______ 
+     _______  _______  _______  _______  _______
     |       ||       ||       ||       ||       |
   D |   {enemy_game_field_dict["D1"]}   ||   {enemy_game_field_dict["D2"]}   ||   {enemy_game_field_dict["D3"]}   ||   {enemy_game_field_dict["D4"]}   ||   {enemy_game_field_dict["D5"]}   |
     |_______||_______||_______||_______||_______|
-     _______  _______  _______  _______  _______ 
+     _______  _______  _______  _______  _______
     |       ||       ||       ||       ||       |
   E |   {enemy_game_field_dict["E1"]}   ||   {enemy_game_field_dict["E2"]}   ||   {enemy_game_field_dict["E3"]}   ||   {enemy_game_field_dict["E4"]}   ||   {enemy_game_field_dict["E5"]}   |
     |_______||_______||_______||_______||_______|
-    
+
     """
-    print(BLUE + field_view+RED + "\n H " + WHITE + "= hit\n" +
+    print(CBLACKBG+BLUE + field_view+RED + "\n H " + WHITE + "= hit\n" +
           GREEN + " 0 " + WHITE+"= already hit/nothing found")
 
 
-def multiplayer_mode():
-    pass
-
 # problem with asking: choice doesn't check for wrong input
-
-
 def ask_play_again(choice_playing):
     choice_state = True
     possible_positive_answers = [
@@ -185,26 +178,6 @@ def ask_play_again(choice_playing):
             choice_playing = False
 
     return choice_playing
-
-
-def battleship_game():
-    wordle_title()
-    choice_playing = True
-    while choice_playing:
-        print(CYAN + "1 " + RESET + "Singele-player mode")
-        print(CYAN + "2 " + RESET + "Player vs. Computer ")
-        choice = input(
-            MAGENTA + "Choose a playing mode: " + RESET)
-        if choice.__eq__("1"):
-            title("single-player mode")
-            single_player_mode()
-            choice_playing = ask_play_again(choice_playing)
-        if choice.__eq__("2"):
-            title("Player vs. Computer")
-            multiplayer_mode()
-            choice_playing = ask_play_again(choice_playing)
-        else:
-            print(RED + "Choosen option does not exist!" + RESET)
 
 
 # battleship_game()
