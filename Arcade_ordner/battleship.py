@@ -25,7 +25,7 @@ def single_player_mode():
                              "E1": " ", "E2": " ", "E3": " ", "E4": " ", "E5": " "
                              }
     enemy = enemy_ship_placement()
-    max_shots = 2
+    max_shots = 14
     game_state = True
     while game_state:
         enemy_view_field(enemy_game_field_dict)
@@ -125,7 +125,7 @@ def check_win(enemy_game_field_dict, max_shots):
             break
         shots_left = max_shots - shot_counter
         ships_left = 7 - ship_counter
-        print(f" Tries left = {shots_left}")
+        # print(f" Tries left = {shots_left}")
     return game_state
 
 

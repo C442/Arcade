@@ -230,8 +230,3 @@ def battleship_game():
             choice_playing = ask_play_again(choice_playing)
         else:
             print(CBLACKBG + RED + "Choosen option does not exist!" + WHITE)
-
-
-# vs_computer_mode()
-# show_mini_grid(own_ship_placement())
-# battleship_game()
