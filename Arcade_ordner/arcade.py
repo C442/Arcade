@@ -6,7 +6,7 @@ from battleship_pl_vs_ki import *
 
 def arcade_title():
     ORANGE = YELLOW + RED
-    main_title = ORANGE + f"""
+    main_title = CBLACKBG + ORANGE + f"""
                                                         
      █████╗ ██████╗  ██████╗ █████╗ ██████╗ ███████╗    
     ██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝    
@@ -15,7 +15,7 @@ def arcade_title():
     ██║  ██║██║  ██║╚██████╗██║  ██║██████╔╝███████╗    
     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚══════╝    
 
-        {BOLD} {RED}by Lies Ben and Mayers Christophe{RESET}
+        {BOLD}{CBLACKBG} {RED}by Lies Ben and Mayers Christophe{WHITE}
 """
     print(main_title)
     print('WELCOME to the "Arcade".\nFeel free to choose a game you like to play.\n ')
@@ -25,11 +25,11 @@ def arcade_menu():
     arcade_title()
     playing = True
     while playing:
-        print(CYAN + "1 " + RESET + "Battleship")
-        print(CYAN + "2 " + RESET + "Hangman")
-        print(CYAN + "3 " + RESET + "Tic Tac To")
-        print(CYAN + "4 " + RESET + "wordle")
-        print(CYAN + "exit" + RESET + " to quit the arcade")
+        print(CBLACKBG + CYAN + "1 " + WHITE + "Battleship")
+        print(CBLACKBG+CYAN + "2 " + WHITE + "Hangman")
+        print(CBLACKBG+CYAN + "3 " + WHITE + "Tic Tac To")
+        print(CBLACKBG+CYAN + "4 " + WHITE + "wordle")
+        print(CBLACKBG+CYAN + "exit" + WHITE + " to quit the arcade")
         game_choice = input(
             MAGENTA + "What game would you like to play?: " + RESET)
         if game_choice.__eq__("1"):
