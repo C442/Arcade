@@ -458,3 +458,4 @@ def empty_field_dict():
             some_dict[letter+str(i)] = " "
             position += 1
     return some_dict
+    
