@@ -43,21 +43,4 @@ def arcade_menu():
             break
 
 
-'''def ask_play_game(question):
-    choice_state = True
-    possible_positive_answers = [
-        "yes", "y", "yes, why not", "yes please", "yeah", "positive",]
-    possible_negative_answers = ["no", "n", "absolutely not", "hell no"]
-    choice_play = input(
-        question)
-
-    for word in possible_positive_answers:
-        if word.__eq__(choice_play):
-            choice_playing = True
-    for word in possible_negative_answers:
-        if word.__eq__(choice_play):
-            choice_playing = False
-    return choice_play
-'''
-
 arcade_menu()
