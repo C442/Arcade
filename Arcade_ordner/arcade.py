@@ -1,4 +1,3 @@
-from mInput import *
 from wordle import *
 from hang_man import *
 from battleship import *
@@ -22,12 +21,11 @@ def arcade_title():
 
 
 def arcade_menu():
-    arcade_title()
     while True:
+        arcade_title()
         print(CYAN + "1 " + WHITE + "Battleship")
         print(CYAN + "2 " + WHITE + "Hangman")
-        print(CYAN + "3 " + WHITE + "Tic Tac To")
-        print(CYAN + "4 " + WHITE + "wordle")
+        print(CYAN + "3 " + WHITE + "Wordle")
         print(CYAN + "exit" + WHITE + " to quit the arcade")
         game_choice = input(
             MAGENTA + "What game would you like to play?: "+WHITE)
@@ -36,8 +34,6 @@ def arcade_menu():
         if game_choice.__eq__("2"):
             hangman_game()
         if game_choice.__eq__("3"):
-            pass
-        if game_choice.__eq__("4"):
             wordle_game()
         if game_choice.__eq__("exit"):
             break

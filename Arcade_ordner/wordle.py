@@ -182,7 +182,7 @@ def wordle_game():
                     print(RED + "No words left to guess!" + RESET)
                     words = wordle_word_list()
             else:
-                print(RED + "Input npt valid!" + RESET)
+                print(RED + "Input not valid!" + RESET)
 
 
 # main

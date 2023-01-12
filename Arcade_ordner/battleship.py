@@ -327,48 +327,60 @@ def entire_field_view(own_game_field_dict, enemy_game_field_dict):
 
 
 def own_ship_placement():
-    own_ships = 0
-
-    print(MAGENTA + " \nChoose a shipposition"+RESET)
-    print(
-        f"Every map has : 2* {GREEN}00 {WHITE}boats and 1* {GREEN}000 {WHITE}boat")
-    own_ships1 = {"A1": None, "A2": None, "A3": True, "A4": True, "A5": True,
-                  "B1": None, "B2": None, "B3": None, "B4": None, "B5": None,
-                  "C1": None, "C2": None, "C3": None, "C4": None, "C5": True,
-                  "D1": None, "D2": True, "D3": None, "D4": None, "D5": True,
-                  "E1": None, "E2": True, "E3": None, "E4": None, "E5": None
-                  }
-    own_ships2 = {"A1": None, "A2": None, "A3": None, "A4": None, "A5": None,
-                  "B1": None, "B2": None, "B3": None, "B4": None, "B5": None,
-                  "C1": True, "C2": True, "C3": True, "C4": None, "C5": None,
-                  "D1": None, "D2": None, "D3": True, "D4": True, "D5": None,
-                  "E1": None, "E2": None, "E3": True, "E4": True, "E5": None
-                  }
-    own_ships3 = {"A1": True, "A2": None, "A3": None, "A4": None, "A5": None,
-                  "B1": True, "B2": None, "B3": None, "B4": None, "B5": True,
-                  "C1": True, "C2": None, "C3": None, "C4": None, "C5": True,
-                  "D1": True, "D2": None, "D3": None, "D4": None, "D5": None,
-                  "E1": True, "E2": None, "E3": None, "E4": None, "E5": None
-                  }
-    print("Choice: 1")
-    show_mini_grid(own_ships1)
-    print("Choice: 2")
-    show_mini_grid(own_ships2)
-    print("Choice: 2")
-    show_mini_grid(own_ships3)
-    while True:
-        choice = input("Give me a choice: ")
-        if choice.__eq__("1"):
-            own_ships = own_ships1
-            break
-        elif choice.__eq__("2"):
-            own_ships = own_ships2
-            break
-        elif choice.__eq__("3"):
-            own_ships = own_ships3
-            break
+    boat_three = 1
+    boat_two = 2
+    own_ships = empty_field_dict()
+    print(f"Every map has : 2* {GREEN}00 {WHITE}boats and 1* {GREEN}000 {WHITE}boat")
+    while not boat_two == 0 and not boat_three == 0:
+        ship_choice = input("Which boat do you want to place? (2, 3): ")
+        if ship_choice == str(2):
+            show_mini_grid(own_ships)
+            position = input("Which coordinates?: ")
+            own_ships[position.upper()] = True
+            position[1] += 1
+            own_ships[position.upper()] = True
+            boat_two -= 1
+        elif ship_choice == str(3):
+            boat_three -= 1
         else:
-            print("Please use 1/2/3 to choose!")
+            print(RED + "Input must be 2 or 3!")
+    # own_ships1 = {"A1": None, "A2": None, "A3": True, "A4": True, "A5": True,
+    #               "B1": None, "B2": None, "B3": None, "B4": None, "B5": None,
+    #               "C1": None, "C2": None, "C3": None, "C4": None, "C5": True,
+    #               "D1": None, "D2": True, "D3": None, "D4": None, "D5": True,
+    #               "E1": None, "E2": True, "E3": None, "E4": None, "E5": None
+    #               }
+    # own_ships2 = {"A1": None, "A2": None, "A3": None, "A4": None, "A5": None,
+    #               "B1": None, "B2": None, "B3": None, "B4": None, "B5": None,
+    #               "C1": True, "C2": True, "C3": True, "C4": None, "C5": None,
+    #               "D1": None, "D2": None, "D3": True, "D4": True, "D5": None,
+    #               "E1": None, "E2": None, "E3": True, "E4": True, "E5": None
+    #               }
+    # own_ships3 = {"A1": True, "A2": None, "A3": None, "A4": None, "A5": None,
+    #               "B1": True, "B2": None, "B3": None, "B4": None, "B5": True,
+    #               "C1": True, "C2": None, "C3": None, "C4": None, "C5": True,
+    #               "D1": True, "D2": None, "D3": None, "D4": None, "D5": None,
+    #               "E1": True, "E2": None, "E3": None, "E4": None, "E5": None
+    #               }
+    # print("Choice: 1")
+    # show_mini_grid(own_ships1)
+    # print("Choice: 2")
+    # show_mini_grid(own_ships2)
+    # print("Choice: 3")
+    # show_mini_grid(own_ships3)
+    # while True:
+    #     choice = input("Give me a choice: ")
+    #     if choice.__eq__("1"):
+    #         own_ships = own_ships1
+    #         break
+    #     elif choice.__eq__("2"):
+    #         own_ships = own_ships2
+    #         break
+    #     elif choice.__eq__("3"):
+    #         own_ships = own_ships3
+    #         break
+    #     else:
+    #         print("Please use 1/2/3 to choose!")
 
     return own_ships
 
@@ -434,10 +446,8 @@ def check_win_vs_mode(current_game_field_dict):
 def empty_field_list():
     some_list = []
     # How to make a list of a field if you are tired of constantly writing one
-    num = 0
     short_alphabet = ["A", "B", "C", "D", "E"]
     for letter in short_alphabet:
-        num += 1
         for chif in range(6):
             if chif == 0:
                 continue
@@ -449,13 +459,12 @@ def empty_field_list():
 
 def empty_field_dict():
     some_dict = {}
-    position = 0
     short_alphabet = ["A", "B", "C", "D", "E"]
     for letter in short_alphabet:
         for i in range(6):
             if i == 0:
                 continue
             some_dict[letter+str(i)] = " "
-            position += 1
     return some_dict
-    
+
+own_ship_placement()
