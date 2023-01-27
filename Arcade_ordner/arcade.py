@@ -36,6 +36,7 @@ def arcade_menu():
         if game_choice.__eq__("3"):
             wordle_game()
         if game_choice.__eq__("exit"):
+            print(RED +'Thank you for playing in the "Arcade"'+RESET)
             break
 
 

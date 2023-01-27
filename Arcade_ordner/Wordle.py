@@ -5,7 +5,7 @@ BLACKBG = "\033[40m"
 
 
 def wordle_title():
-    print_title = BOLD + CYAN + """
+    print_title = BOLD + CYAN + r"""
      .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
     | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
     | | _____  _____ | || |     ____     | || |  _______     | || |  ________    | || |   _____      | || |  _________   | |
@@ -58,9 +58,9 @@ def wordle_guessing(word, word_size, word_interface, more_letters, lig):
         guess = guess.upper()
         if len(guess) == len(word):
             used_letters = []
-            for index in range(word_size):
+            for index in range(word_size):      # first for loop: checks if a letter is at the right position
                 if guess[index] not in used_letters:
-                    letter_count = word.count(guess[index])
+                    letter_count = word.count(guess[index])     # count the number of each letter in the word to guess
                     for _ in range(letter_count):
                         more_letters.append(guess[index])
                     used_letters.append(guess[index])
@@ -68,14 +68,14 @@ def wordle_guessing(word, word_size, word_interface, more_letters, lig):
                     word_interface[lig][index] = CGREENBG + \
                         BLACK + " " + guess[index] + " " + RESET + GREY
                     more_letters.remove(guess[index])
-            for index1 in range(word_size):
+            for index1 in range(word_size):     # second for loop: checks letters occurrence in the word to guess
                 if guess[index1] in word and guess[index1] in more_letters and not word[index1] == guess[index1]:
                     word_interface[lig][index1] = CYELLOWBG + \
                         BLACK + " " + guess[index1] + " " + RESET + GREY
                     more_letters.remove(guess[index1])
                 elif not word[index1] == guess[index1]:
                     word_interface[lig][index1] = GREY + \
-                        " " + guess[index1] + " "
+                        " " + guess[index1] + " "   # if guess contains a letter more often than it occurs in the word to guess it gets grayed out
             lig += 1
             guessing = wordle_win_loose_detection(
                 lig, word_size, word, guess, word_interface)
@@ -182,7 +182,7 @@ def wordle_game():
                     print(RED + "No words left to guess!" + RESET)
                     words = wordle_word_list()
             else:
-                print(RED + "Input npt valid!" + RESET)
+                print(RED + "Input not valid!" + RESET)
 
 
 # main

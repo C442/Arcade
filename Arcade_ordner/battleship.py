@@ -4,12 +4,12 @@ from random import randint
 # vs_mode: player vs computer mode
 
 
-# battleship: game loop
+# battleship: entire game loop
 
 
 def battleship_game():
-    battle_ship_title()
     while True:
+        battle_ship_title()
         print(CYAN + "1 " + WHITE + "Singele-player mode")
         print(CYAN + "2 " + WHITE + "Player vs. Computer ")
         choice = input(
@@ -77,7 +77,7 @@ def single_player_mode():
         enemy_view_field(enemy_game_field_dict)
         if not game_state:
 
-            if targets_left == 1:
+            if targets_left == 0:
                 print(BOLD + GREENBRIGHT +
                       f"Well done captain!!! WE won in {shot_counter} shots" + RESET)
             else:
@@ -126,7 +126,7 @@ def vs_computer_mode():
         entire_field_view(own_game_field_dict, enemy_game_field_dict)
         print(f"There are still {enemy_ships_left}/7 targets left")
 
-# single_mode + vs_mode: determination of enemy ship positions
+# single_mode + vs_mode: determination of enemy ship positions 
 
 
 def enemy_ship_placement():
@@ -209,19 +209,22 @@ def check_hit(enemy, shot, enemy_game_field_dict):
 def check_win(enemy_game_field_dict, max_shots):
     ship_counter = 0
     shot_counter = 0
+    ships_left = 7
     game_state = True
 
     for key in enemy_game_field_dict:
-        shots_left = max_shots - shot_counter
-        ships_left = 7 - ship_counter
+        
         if enemy_game_field_dict[key].__eq__(RED + "H" + BLUE):
             ship_counter += 1
             shot_counter += 1
         if enemy_game_field_dict[key].__eq__(GREEN + "0" + BLUE):
             shot_counter += 1
-        if ship_counter == 7 or shot_counter == max_shots+1:
-            game_state = False
-            break
+    shots_left = max_shots - shot_counter
+    ships_left -= ship_counter
+    if ships_left == 0 or shot_counter == max_shots:
+        game_state = False
+    
+    print(game_state)
 
     return game_state, shots_left, ships_left, shot_counter
 
@@ -451,3 +454,6 @@ def empty_field_dict():
                 continue
             some_dict[letter+str(i)] = " "
     return some_dict
+
+if __name__ == "__main__":
+    battleship_game()

@@ -14,7 +14,7 @@ def hangman_title():
     print(GREENBRIGHT + screen_title)
 
 
-def hangman_frames(wrong_answer):
+def hangman_frames(wrong_answer):  # different hangman frames to print out in console
     hangman_frame = ""
     if wrong_answer == 0:
         hangman_frame = r"""
@@ -114,17 +114,17 @@ def win_loose_detection(list1, list2, wrong_answer, round_counter, word):
     if wrong_answer == 8:
         print(BOLD + RED + "You lost!" + RESET)
         print(BOLD + RED + "The word was: " + RESET + MAGENTA + word.upper())
-        gameState = False
+        game_state = False
     elif list1 == list2:
         print(BOLD + GREENBRIGHT +
               f"You won and needed {round_counter} guess(es)!" + RESET)
-        gameState = False
+        game_state = False
     else:
-        gameState = True
-    return gameState
+        game_state = True
+    return game_state
 
 
-def induvidual_preset_words():
+def individual_preset_words():  # Option 1: possibility to create your own set of words
     words_preset = []
     word_count = 1
     action = True
@@ -147,7 +147,7 @@ def induvidual_preset_words():
             print(RED + "Word already used or no valid input given!")
 
 
-def preset_words():
+def preset_words():     # Option 2: lists of words to guess
     player_input = "0"
     word_set = []
     print(BLUE + "Which language do you prefer?" + RESET)
@@ -212,7 +212,7 @@ def hangman_menu():
         if user_input == "1":
             words = preset_words()
         elif user_input == "2":
-            words = induvidual_preset_words()
+            words = individual_preset_words()
         else:
             print(RED + "Choosen option does not exist!" + RESET)
     return words
@@ -247,7 +247,3 @@ def hangman_game():
                     words = hangman_menu()
             else:
                 print(RED + "Input not valid!" + RESET)
-
-
-# main
-# hangman_game()
