@@ -126,7 +126,7 @@ def vs_computer_mode():
         entire_field_view(own_game_field_dict, enemy_game_field_dict)
         print(f"There are still {enemy_ships_left}/7 targets left")
 
-# single_mode + vs_mode: determination of enemy ship positions 
+# single_mode + vs_mode: determination of enemy ship positions
 
 
 def enemy_ship_placement():
@@ -213,7 +213,7 @@ def check_win(enemy_game_field_dict, max_shots):
     game_state = True
 
     for key in enemy_game_field_dict:
-        
+
         if enemy_game_field_dict[key].__eq__(RED + "H" + BLUE):
             ship_counter += 1
             shot_counter += 1
@@ -223,7 +223,7 @@ def check_win(enemy_game_field_dict, max_shots):
     ships_left -= ship_counter
     if ships_left == 0 or shot_counter == max_shots:
         game_state = False
-    
+
     print(game_state)
 
     return game_state, shots_left, ships_left, shot_counter
@@ -269,7 +269,7 @@ def ask_play_again(question):
     choice_playing = True
     answer = False
     possible_positive_answers = [
-        "yes", "y", "yes, why not", "yes please", "yeah", "positive",]
+        "yes", "y", "yes, why not", "yes please", "yeah", "positive", ]
     possible_negative_answers = ["no", "n", "absolutely not", "hell no"]
     while True:
         choice_play = input(
@@ -326,12 +326,82 @@ def entire_field_view(own_game_field_dict, enemy_game_field_dict):
     print(BLUE + field_view + RED + "\n H " + WHITE + "= hit\n" +
           GREEN + " 0 " + WHITE+"= already hit/nothing found")
 
+# vs_mode: choosing from prepared shippositions !!!not active and not functional
+
+
+def own_ship_placement1():
+    boat_three = 1
+    boat_two = 2
+    own_ships = empty_field_dict()
+    short_alphabet = ["A", "B", "C", "D", "E"]
+    print(
+        f"Every map has :  horizontal 2* {GREEN}00 {WHITE}boats and 1 vertical {GREEN}000 {WHITE}boat")
+    while not boat_two == 0 and not boat_three == 0:
+        ship_choice = input("Which boat do you want to place? (2, 3): ")
+        if ship_choice == str(2):
+            show_mini_grid(own_ships)
+            position = input(
+                "At which coordinates should the boat start?(A1,b2...): ")
+            own_ships[position.upper()] = True
+            for letter in short_alphabet:
+                try:
+                    now = position.upper().split(letter)
+                    letter = letter
+                    print(now)
+                except:
+                    pass
+                if len(now) == 2:
+                    break
+            number = int(now[1])
+            if number < 5:
+                now_number = number+1
+                print(now_number)
+                own_ships[letter+str(now_number)] = True
+            else:
+                now_number = number-1
+                print(now_number)
+                own_ships[letter+str(now_number)] = True
+            boat_two -= 1
+
+# this part doesn't work as intendet. +user input makes it difficult: trying to place the ship at the same spot
+        elif ship_choice == str(3):
+            show_mini_grid(own_ships)
+            position = input(
+                "At which coordinates should the boat start?(A1,b2...): ")
+            own_ships[position.upper()] = True
+            for number in range(6):
+                try:
+                    now = position.split(str(number))
+                    letter = letter
+                    print(now)
+                except:
+                    pass
+                if len(now) == 2:
+                    break
+            letter = int(now[1])
+            if letter == "A" or letter == "B":
+                now_letter1 = letter
+
+                print(now_number)
+                own_ships[letter+str(now_number)] = True
+            else:
+                now_number = number-1
+                print(now_number)
+                own_ships[letter+str(now_number)] = True
+            boat_three -= 1
+        else:
+            print(RED + "Input must be 2 or 3!")
+            print("Please use 1/2/3 to choose!")
+
+    return own_ships
+
 # vs_mode: choosing from prepared shippositions
 
 
 def own_ship_placement():
     own_ships = empty_field_dict()
-    print(f"Every map has : 2* {GREEN}00 {WHITE}boats and 1* {GREEN}000 {WHITE}boat")
+    print(
+        f"Every map has : 2* {GREEN}00 {WHITE}boats and 1* {GREEN}000 {WHITE}boat")
     own_ships1 = {"A1": None, "A2": None, "A3": True, "A4": True, "A5": True,
                   "B1": None, "B2": None, "B3": None, "B4": None, "B5": None,
                   "C1": None, "C2": None, "C3": None, "C4": None, "C5": True,
@@ -378,9 +448,9 @@ def own_ship_placement():
 def show_mini_grid(some_dict):
     grid_list = []
     for key in some_dict:
-        if some_dict[key] == None:
+        if some_dict[key] == " ":
             grid_list.append(WHITE + "0 " + RESET)
-        if some_dict[key]:
+        if some_dict[key] == True:
             grid_list.append(GREEN + "0 " + RESET)
 
     mini_grid = f"""
@@ -454,6 +524,7 @@ def empty_field_dict():
                 continue
             some_dict[letter+str(i)] = " "
     return some_dict
+
 
 if __name__ == "__main__":
     battleship_game()
